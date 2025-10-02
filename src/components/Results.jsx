@@ -1,7 +1,28 @@
 // Results component - Displays the top 5 activity recommendations
 // Shows numbered rankings, titles, emojis, descriptions, locations, and distances
+// Also handles error states when the API call fails
 
-export default function Results({ recommendations }) {
+export default function Results({ recommendations, error }) {
+  // If there's an error, show error message
+  if (error) {
+    return (
+      <div className="lg:col-span-8">
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 text-center">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h3 className="text-xl font-semibold text-red-900 mb-2">
+            Oops! Something went wrong
+          </h3>
+          <p className="text-red-700 mb-4">
+            {error}
+          </p>
+          <p className="text-sm text-red-600">
+            Please try again or adjust your search criteria.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   // If no results yet, show a helpful message
   if (!recommendations || recommendations.length === 0) {
     return (
